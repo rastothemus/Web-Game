@@ -2,15 +2,10 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Pong Game</title>
 </head>
 <style>
-    @import url('httpsL//fonts.googleapis.com/css2?family=Poppins&display=swap');
-    * {
-        font-family: 'Poppins', sans-serif;
-    }
     body {
         text-align: center;
         background-color: ghostwhite;
@@ -21,31 +16,20 @@
         flex-direction: column;
         position: fixed;
         width: 100%;
-        background-image: url("background.jpg");
+        background-image: url("images/background.jpg");
         background-size: cover; 
     }
-    .neonText{
-        color: whitesmoke;
-        text-shadow: -5px 5px 0px #00e6e6,
-        -10px 10px 0px #01cccc,
-        -15px 15px 0px #00bdbd,
-        2px 2px 20px #CDCECB;
+    .textMain {
+    font-size: 4em;
+    font-weight: bold;
+    color: #fff;
     }
-    .text3d {
-  font-size: 4em;
-  font-weight: bold;
-  color: #fff;
-  text-shadow: 0 0 10px #000;
-  transform-style: preserve-3d;
-  perspective: 500px;
-}
-
-
 </style>
 <body>
-    <h1 class="text3d">Pong-Evolution</h1>
-    <canvas></canvas>
+    <h1 class="textMain">Pong-Evolution</h1>
+    <p id="analyse" style="color:white;"></p>
+    <canvas style="z-index: 1;"></canvas>
     <p style="color:whitesmoke">Control the left player by using up and down arrow keys</p>
-    <script src="js/script.js"></script>
+    <script type="module" src="js/script.js" ></script>
 </body>
 </html>
