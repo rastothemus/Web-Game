@@ -3,7 +3,7 @@ import { Ball, DIRECTION } from "./ball.js"
 import { RealPlayer, AI } from "./player.js"
 import { Item } from "./item.js"
 import { clearCanvas, drawText, loadImage } from "./help.js"
-import {drawBackground,drawNet,drawPlayerScores,drawRound,drawWinningScore} from "./draw.js"
+import {drawBackground,drawPlayerScores,drawRound,drawWinningScore} from "./draw.js"
 
 export const canvas = document.querySelector('canvas')
 canvas.width = 1400   //Doppelt damit man bei ganzen Zahlen bleibt
