@@ -1,29 +1,6 @@
 import { canvas,context,color,rounds,pitch,pitchSrc } from "./script.js";
 
-export function drawBackground(){
-    // // Set the fill style to black
-    // context.fillStyle = color
-
-    // // Draw the background
-    // context.fillRect(
-    //     0,
-    //     0,
-    //     canvas.width,
-    //     canvas.height
-    // )
-
-    context.drawImage(pitch, 0, 0, canvas.width, canvas.height)
-}
-
-export function drawNet(){
-    context.beginPath()
-    context.setLineDash([7, 15])
-    context.moveTo((canvas.width / 2), canvas.height - 140)
-    context.lineTo((canvas.width / 2), 140)
-    context.lineWidth = 10
-    context.strokeStyle = '#ffffff'
-    context.stroke()
-}
+export function drawBackground(){context.drawImage(pitch, 0, 0, canvas.width, canvas.height)}
 
 export function drawPlayerScores(playerScore,aiScore){
     context.font = '100px Courier New'

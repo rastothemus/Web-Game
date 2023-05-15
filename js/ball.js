@@ -1,4 +1,4 @@
-import { canvas,hitSound } from "./script.js"
+import { canvas,hitSound,ball } from "./script.js"
 
 // Zuordnung von Zahlen zu möglichen Bewegungen
 export const DIRECTION = {
@@ -11,8 +11,8 @@ export const DIRECTION = {
 
 export class Ball {
     constructor(canvasWidth, canvasHeight, incrementedSpeed) {
-        this.width = 18
-        this.height = 18
+        this.width = 35
+        this.height = 35
         this.x = (canvasWidth / 2) - 9
         this.y = (canvasHeight / 2) - 9
         this.moveX = DIRECTION.IDLE
@@ -37,14 +37,7 @@ export class Ball {
         }
     }
 
-    draw(context) {
-        context.fillRect(
-            this.x,
-            this.y,
-            this.width,
-            this.height
-        )
-    }
+    draw(context) {context.drawImage(ball,this.x,this.y,this.width,this.height)}
 
     move(player1,player2){
         if (this.moveY === DIRECTION.UP) this.y -= (this.speed / 1.5)

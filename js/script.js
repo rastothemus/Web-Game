@@ -2,7 +2,7 @@ import { Keyboard } from "./keyboard.js"
 import { Ball, DIRECTION } from "./ball.js"
 import { RealPlayer, AI } from "./player.js"
 import { Item } from "./item.js"
-import { drawText } from "./help.js"
+import { clearCanvas, drawText, loadImage } from "./help.js"
 import {drawBackground,drawNet,drawPlayerScores,drawRound,drawWinningScore} from "./draw.js"
 
 export const canvas = document.querySelector('canvas')
@@ -14,10 +14,12 @@ export const context = canvas?.getContext('2d')
 export const analyse = document.getElementById("analyse")
 export let color = '#8c52ff'
 export let pitchSrc = 'bb-pitch'
+export let ballSrc = 'basketball'
 
-export const rounds = [1, 5, 3, 3, 2] // Punkte die man braucht um die jeweilige Runde zu beenden
+export const rounds = [1, 1, 3, 3, 2] // Punkte die man braucht um die jeweilige Runde zu beenden
 const colors = ['#1abc9c', '#2ecc71', '#3498db', '#8c52ff', '#9b59b6']
 const pitches = ['fb-pitch','ih-pitch','r-pitch','bb-pitch','t-pitch']
+const balls = ['football','icekhockeypuck','rugbyball','basketball','tennisball']
 
 export const music = new Audio('../Music.mp3')
 music.play()
@@ -88,6 +90,9 @@ class Game {
     }
 
     draw() {
+
+        clearCanvas()
+
         drawBackground()
         
         this.player.draw()
@@ -170,8 +175,11 @@ class Game {
             const index = Math.floor(Math.random() * colors.length)
             var newColor = colors[index]
             if (newColor === color) return this._generateRoundColor()
+            pitchSrc = 'images/' + pitches[index] + '.jpg'
+            ballSrc = 'images/' + balls[index] + '.png'
             pitch.src = 'images/' + pitches[index] + '.jpg'
-            pitch.onload = () => resolve(newColor)
+            let promises = [loadImage(pitch,pitchSrc),loadImage(ball,ballSrc)]
+            Promise.all(promises).then(() => resolve(newColor))
         })
     }
 
@@ -182,7 +190,13 @@ class Game {
 const image = new Image()
 image.src = "images/grow.png"
 
+
 export const pitch = new Image()
 pitch.src = "images/bb-pitch.jpg"
 
-pitch.onload = () => {var Pong = new Game()}
+export const ball = new Image()
+ball.src = "images/basketball.png"
+
+var Pong
+
+pitch.onload = () => Pong = new Game()

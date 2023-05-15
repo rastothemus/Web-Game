@@ -1,6 +1,9 @@
 import { canvas, context } from "./script.js"
 import { DIRECTION } from "./ball.js"
 
+const bat = new Image()
+bat.src = "images/bat.png"
+
 class Player {
     constructor(canvasWidth, canvasHeight, side) {
         this.width = 18
@@ -17,15 +20,7 @@ class Player {
         else if (this.y >= canvas.height - this.height) this.y = canvas.height - this.height
     }
 
-    draw() {
-        context.fillStyle = '#ffffff'
-        context.fillRect(
-            this.x,
-            this.y,
-            this.width,
-            this.height
-        )
-    }
+    draw() {context.drawImage(bat,this.x,this.y,this.width,this.height)}
 }
 
 export class RealPlayer extends Player{

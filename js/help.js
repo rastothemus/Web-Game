@@ -22,3 +22,14 @@ export function drawText(text){
         canvas.height / 2 + 15
     )
 }
+
+export function clearCanvas(){
+    context.clearRect(0, 0, canvas.width, canvas.height)
+}
+
+export function loadImage(image,src){
+    return new Promise(resolve => {
+        image.src = src
+        image.onload = () => resolve(true)
+    })
+}
