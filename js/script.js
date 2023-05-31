@@ -19,7 +19,7 @@ export let ballSrc = 'basketball'
 export const rounds = [1, 1, 3, 3, 2] // Punkte die man braucht um die jeweilige Runde zu beenden
 const colors = ['#1abc9c', '#2ecc71', '#3498db', '#8c52ff', '#9b59b6']
 const pitches = ['fb-pitch','ih-pitch','r-pitch','bb-pitch','t-pitch']
-const balls = ['football','icekhockeypuck','rugbyball','basketball','tennisball']
+const balls = ['football','icehockeypuck','rugbyball','basketball','tennisball']
 
 export const music = new Audio('../Music.mp3')
 music.play()
@@ -65,7 +65,6 @@ class Game {
 
             this.player.move(this.keys)
 
-
             // On new serve (start of each turn) move the ball to the correct side
             // and randomize the direction to add some challenge.
             if (this.turn && this._turnDelayIsOver()) {
@@ -74,10 +73,13 @@ class Game {
                 this.ball.y = Math.floor(Math.random() * canvas.height - 200) + 200
                 this.turn = null
             }
-
+            
             this.ball.move(this.player,this.ai)
 
+            
             this.ai.move(this.ball)
+
+            this.item.move(this.ball,this.player,this.ai)
         }
 
         if (this.player.score === rounds[this.round]) {
@@ -160,7 +162,6 @@ class Game {
         this.ball = new Ball(canvas.width, canvas.height, this.ball.speed)
         this.turn = loser
         this.timer = (new Date()).getTime()
-
         victor.score++
     }
 
@@ -172,14 +173,17 @@ class Game {
     // Select a random color as the background of each level/round.
     _generateRoundColor() {
         return new Promise(resolve => {
-            const index = Math.floor(Math.random() * colors.length)
+            do{
+            var index = Math.floor(Math.random() * colors.length)
             var newColor = colors[index]
-            if (newColor === color) return this._generateRoundColor()
+            }while (newColor === color)
             pitchSrc = 'images/' + pitches[index] + '.jpg'
             ballSrc = 'images/' + balls[index] + '.png'
             pitch.src = 'images/' + pitches[index] + '.jpg'
             let promises = [loadImage(pitch,pitchSrc),loadImage(ball,ballSrc)]
-            Promise.all(promises).then(() => resolve(newColor))
+            Promise.all(promises).then(() => {
+                resolve(newColor)
+            })
         })
     }
 

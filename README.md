@@ -27,3 +27,10 @@ Icehockey-Puck: https://cdn-icons-png.flaticon.com/512/0/14.png
 Football: https://upload.wikimedia.org/wikipedia/commons/thumb/6/6e/Football_%28soccer_ball%29.svg/1200px-Football_%28soccer_ball%29.svg.png
 
 Rugbyball: https://upload.wikimedia.org/wikipedia/commons/thumb/1/16/American_football.svg/1024px-American_football.svg.png 
+
+Shrink-Ball: https://www.shutterstock.com/image-vector/shrink-icon-flat-style-circle-260nw-2066546690.jpg
+
+Shrink: https://static.thenounproject.com/png/1268891-200.png
+
+Grow-Ball: https://static.thenounproject.com/png/1268891-200.png 
+

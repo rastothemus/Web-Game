@@ -11,10 +11,10 @@ export const DIRECTION = {
 
 export class Ball {
     constructor(canvasWidth, canvasHeight, incrementedSpeed) {
-        this.width = 35
-        this.height = 35
-        this.x = (canvasWidth / 2) - 9
-        this.y = (canvasHeight / 2) - 9
+        this.width = 36
+        this.height = 36
+        this.x = (canvasWidth / 2) - 18
+        this.y = (canvasHeight / 2) - 18
         this.moveX = DIRECTION.IDLE
         this.moveY = DIRECTION.IDLE
         this.speed = incrementedSpeed || 7
