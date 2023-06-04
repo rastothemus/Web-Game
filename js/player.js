@@ -21,6 +21,8 @@ class Player {
     }
 
     draw() {context.drawImage(bat,this.x,this.y,this.width,this.height)}
+    
+    reset() {this.height = 180}
 }
 
 export class RealPlayer extends Player{

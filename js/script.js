@@ -163,6 +163,8 @@ class Game {
         this.turn = loser
         this.timer = (new Date()).getTime()
         victor.score++
+        this.player.reset()
+        this.ai.reset()
     }
 
     // Wait for a delay to have passed after each turn.
@@ -192,7 +194,7 @@ class Game {
 
 
 const image = new Image()
-image.src = "images/grow.png"
+image.src = "images/shrinkBall.png"
 
 
 export const pitch = new Image()
