@@ -3,6 +3,10 @@ import { DIRECTION } from "./ball.js"
 import { loadImage } from "./help.js"
 
 const imageSrcs = ["grow","shrink","growBall","shrinkBall"]
+const maxPlayerHeight = 360
+const minPlayerHeight = 90
+const maxBallSize = 60
+const minBallSize = 15
 
 export class Item {
     constructor(canvasWidth, canvasHeight,image) {
@@ -13,7 +17,7 @@ export class Item {
         this.moveY = DIRECTION.UP
         this.speed = 3
         this.image = image
-        this.imageSrc = "grow"
+        this.imageSrc = "shrinkBall"
         this.activated = false 
         this.collected = false 
     }
@@ -34,14 +38,20 @@ export class Item {
         if(!this.collected){
             if (this.x - this.width <= ball.x && this.x >= ball.x - ball.width && this.y <= ball.y + ball.height && this.y + this.height >= ball.y) {
                 this.activated = true
-                if(ball.moveX === DIRECTION.LEFT) {
-                    ai.height += 3
-                    console.log("aiGrow")
-                }
-                else {
-                    player.height += 3
-                    console.log("playerGrow")
-                }
+                console.log(this.imageSrc)
+                switch(this.imageSrc){
+                    case "grow": 
+                        this.growPlayer(ball,player,ai)
+                        break
+                    case "growBall":
+                        this.growBall(ball)
+                        break
+                    case "shrink":
+                        this.shrinkPlayer(ball,player,ai)
+                        break
+                    default:
+                        this.shrinkBall(ball)
+                } 
             }
             else if (this.activated) {
                 this.collected = true
@@ -65,6 +75,39 @@ export class Item {
         this.imageSrc = newSrc
         await loadImage(this.image,'images/' + this.imageSrc + '.png')
         console.log("image.src")
+    }
+
+    growBall(ball){
+        ball.width +=10
+        ball.height +=10
+        if(ball.height >= maxBallSize){
+            ball.width = maxBallSize
+            ball.height = maxBallSize
+        }
+    }
+
+    growPlayer(ball,player,ai){
+        if(ball.moveX === DIRECTION.LEFT) ai.height += 3
+        else player.height += 3
+        if(player.height>maxPlayerHeight) player.height = maxPlayerHeight
+        if(ai.height>maxPlayerHeight) ai.height = maxPlayerHeight
+    }
+
+    shrinkBall(ball){
+        ball.width -=10
+        ball.height -=10
+        if(ball.height < minBallSize){
+            ball.width = minBallSize
+            ball.height = minBallSize
+        }
+        console.log(ball.height)
+    }
+
+    shrinkPlayer(ball,player,ai){
+        if(ball.moveX === DIRECTION.LEFT) player.height -= 3
+        else ai.height -= 3
+        if(player.height<minPlayerHeight) player.height = minPlayerHeight
+        if(ai.height<minPlayerHeight) ai.height = minPlayerHeight
     }
 
     draw(){
