@@ -49,16 +49,9 @@ class Game {
 
         this.over = false
         this.turn = this.player2
-        this.timer = this.round = 0
+        this.timer = this.round = 0    
 
-        this.hideMenu()
-
-
-        this.draw()
-
-        drawText("Beliebige Taste drücken")
-
-        this.keys.waitTillAnyKeyPressed().then(() => window.requestAnimationFrame(() => this.loop()))
+        this.setup()
     }
 
     endGameMenu(text) {
@@ -122,9 +115,10 @@ class Game {
 
         drawPlayerScores(this.player.score.toString(),this.player2.score.toString())
 
-        drawRound(this.round)
-       
-        drawWinningScore(this.round)
+        if(!multiplayer.checked) {
+            drawRound(this.round)
+            drawWinningScore(this.round)
+        }
     }
 
     async loop() {
@@ -197,14 +191,26 @@ class Game {
             })
         })
     }
-    hideMenu(){
+    async hideMenu(){
         [startButton,document.getElementById("rules"),itemCheck,document.getElementById("icLabel"),multiplayer,document.getElementById("mpLabel")]
         .forEach(el => el.style.zIndex = "0")
+        color = await this._generateRoundColor()
     }
     showMenu(){
         clearCanvas()
         var menuItems = [startButton,document.getElementById("rules"),itemCheck,document.getElementById("icLabel"),multiplayer,document.getElementById("mpLabel")]
         menuItems.forEach(el => el.style.zIndex = "1")
+    }
+    async setup(){
+        this.hideMenu()
+
+        color = await this._generateRoundColor()
+        this.draw()
+
+        drawText("Beliebige Taste drücken")
+
+        this.keys.waitTillAnyKeyPressed().then(() => window.requestAnimationFrame(() => this.loop()))
+
     }
 
 }
