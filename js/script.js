@@ -22,8 +22,16 @@ const pitches = ['fb-pitch','ih-pitch','r-pitch','bb-pitch','t-pitch']
 const balls = ['football','icehockeypuck','rugbyball','basketball','tennisball']
 
 export const music = new Audio('../Music.mp3')
+music.volume = 0.5
 music.play()
+var musicSlider = document.getElementById('music')
+musicSlider.value = 50
+musicSlider.addEventListener('input', () => music.volume = musicSlider.value/100);
 export const hitSound = new Audio('../hit.mp3')
+hitSound.volume = 0.5
+var soundSlider = document.getElementById('sounds')
+soundSlider.value = 50
+soundSlider.addEventListener('input', () => hitSound.volume = soundSlider.value/100);
 
 class Game {
     constructor() {
@@ -33,6 +41,7 @@ class Game {
 
         this.ball = new Ball(canvas?.width, canvas?.height)
 
+        //if(itemCheck.checked) this.item = new Item(canvas?.width, canvas?.height,image)
         this.item = new Item(canvas?.width, canvas?.height,image)
 
         this.keys = new Keyboard()
@@ -43,6 +52,8 @@ class Game {
         this.over = false
         this.turn = this.ai
         this.timer = this.round = 0
+
+        //startButton.style.zIndex = "0"
 
 
         this.draw()
@@ -79,7 +90,7 @@ class Game {
             
             this.ai.move(this.ball)
 
-            this.item.move(this.ball,this.player,this.ai)
+            this.item?.move(this.ball,this.player,this.ai)
         }
 
         if (this.player.score === rounds[this.round]) {
@@ -105,7 +116,7 @@ class Game {
             this.ball.draw(context)
         }
 
-        this.item.draw()
+        this.item?.draw()
 
         context.textAlign = 'center'
 
@@ -203,6 +214,10 @@ pitch.src = "images/bb-pitch.jpg"
 export const ball = new Image()
 ball.src = "images/basketball.png"
 
+var startButton = document.getElementById('start')
+// var itemCheck = document.getElementById('itemCheck')
 var Pong
+
+//startButton.addEventListener('click',() => Pong = new Game())
 
 pitch.onload = () => Pong = new Game()

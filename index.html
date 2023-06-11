@@ -10,25 +10,57 @@
         background-color: ghostwhite;
         display: flex;
         justify-content: center;
-        align-items: center;
         height: 100vh;
         flex-direction: column;
-        position: fixed;
         width: 100%;
         background-image: url("images/background.jpg");
         background-size: cover; 
+        color: white;
     }
-    .textMain {
+    .title {
     font-size: 4em;
     font-weight: bold;
     color: #fff;
+    text-align: center;
+    }
+    .startButton {
+        top: 300px; 
+    }
+    .menuElement {
+        z-index: 1;
+        position:absolute;
+        left: 50%; 
+        transform: translate(-50%, -100%); 
+    }
+    #demotext {
+        color: #FFFFFF;
+        text-shadow: #FFF 0px 0px 5px, #FFF 0px 0px 10px, #FFF 0px 0px 15px, #FF2D95 0px 0px 20px, #FF2D95 0px 0px 30px, #FF2D95 0px 0px 40px, #FF2D95 0px 0px 50px, #FF2D95 0px 0px 75px;
     }
 </style>
 <body>
-    <h1 class="textMain">Pong-Evolution</h1>
-    <p id="analyse" style="color:white;"></p>
-    <canvas style="z-index: 1;"></canvas>
-    <p style="color:whitesmoke">Control the left player by using up and down arrow keys</p>
+    <h1 class="title">Pong-Evolution</h1>
+    <!-- <p id="analyse" style="color:white;"></p> -->
+    <div style="display:flex;">
+        <div style="flex:1;">
+        </div>
+        <canvas style="z-index: 1;">
+        </canvas>
+        <!-- <button id="start" class="startButton menuElement">Start Game</button>
+        <label for="itemCheck" class="menuElement" style="top:380px;color: black;">Items enabled</label>
+        <input id="itemCheck" type="checkbox" class="menuElement" style="top:400px">
+        <p class="menuElement" id="demotext" style="color:black; top:250px; width: 500px;">Rules: <br>
+            Player 1 moves with the w & s keys. Spieler 2 moves with the arrow keys. 
+            The items that move up & down in the middle of the screen, can change the size of the players and the ball.
+            The strength of the effect depends on how long the ball passes through the item.</p> -->
+        <div style="display: flex; flex-direction: column; justify-content: center; flex: 1;align-items: center;">
+            <p style="color: white;">Optionen</p>
+            <label for="music">Music:</label> 
+            <input type="range" id="music" min="0" max="100" step="1" value="100">
+            <label for="sounds">Sounds:</label> 
+            <input type="range" id="sounds" min="0" max="100" step="1" value="100">
+        </div>
+    </div>
+    <p style="color:whitesmoke; text-align:center;">Control the left player by using up and down arrow keys</p>
     <script type="module" src="js/script.js" ></script>
 </body>
 </html>
