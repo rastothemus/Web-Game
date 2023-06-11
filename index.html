@@ -25,7 +25,7 @@
     text-align: center;
     }
     .startButton {
-        top: 70%; 
+        top: 72%;
     }
     .menuElement {
         z-index: 1;
@@ -49,12 +49,14 @@
         <canvas style="z-index: 1;">
         </canvas>
         <button id="start" class="startButton menuElement">Start Game</button>
-        <label id="icLabel" for="itemCheck" class="menuElement" style="top:380px;color: black;">Items enabled</label>
-        <input id="itemCheck" type="checkbox" class="menuElement" style="top:400px">
-        <p class="menuElement" id="rules" style="color:black;top:45%; width: 400px;">Rules: <br>
-            Player 1 moves with the w & s keys. Spieler 2 moves with the arrow keys. 
+        <label id="icLabel" for="itemCheck" class="menuElement" style="top:58%;color: black;">Items enabled</label>
+        <input id="itemCheck" type="checkbox" class="menuElement" style="top:60%">
+        <label id="mpLabel" for="itemCheck" class="menuElement" style="top:64%;color: black;">Multiplayer</label>
+        <input id="multiPlayer" type="checkbox" class="menuElement" style="top:66%">
+        <p class="menuElement" id="rules" style="color:black;top:50%; width: 400px;">Rules: <br>
+            Player 1 moves with the w & s keys. Player 2 moves with the arrow keys. 
             The items that move up & down in the middle of the screen, can change the size of the players and the ball.
-            The strength of the effect depends on how long the ball passes through the item.</p>
+            The strength of the effect depends on how long the ball passes through the item. Press the space key to pause the game.</p>
         <div style="display: flex; flex-direction: column; justify-content: center; flex: 1;align-items: center;">
             <p style="color: white;">Optionen</p>
             <label for="music">Music:</label> 

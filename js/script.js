@@ -37,7 +37,7 @@ class Game {
     constructor() {
 
         this.player = new RealPlayer(canvas?.width, canvas?.height, 'left')
-        this.ai = new AI(canvas?.width, canvas?.height, 'right')
+        this.player2 = multiplayer.checked ? new RealPlayer(canvas?.width, canvas?.height, 'right') : new AI(canvas?.width, canvas?.height, 'right')
 
         this.ball = new Ball(canvas?.width, canvas?.height)
 
@@ -47,9 +47,8 @@ class Game {
 
         this.keys.listenTo(window)
 
-        this.ai.speed = 5
         this.over = false
-        this.turn = this.ai
+        this.turn = this.player2
         this.timer = this.round = 0
 
         this.hideMenu()
@@ -64,7 +63,7 @@ class Game {
 
     endGameMenu(text) {
         drawText(text)
-        setTimeout(() => Pong = new Game(), 3000)
+        setTimeout(() => this.showMenu(), 3000)
     }
 
     // Update all objects (move the player, ai, ball, increment the score, etc.)
@@ -84,19 +83,19 @@ class Game {
                 this.turn = null
             }
             
-            this.ball.move(this.player,this.ai)
+            this.ball.move(this.player,this.player2)
 
             
-            this.ai.move(this.ball)
+            multiplayer.checked ? this.player2.move(this.keys) : this.player2.move(this.ball)
 
-            this.item?.move(this.ball,this.player,this.ai)
+            this.item?.move(this.ball,this.player,this.player2)
         }
 
-        if (this.player.score === rounds[this.round]) {
+        if (this.player.score === (multiplayer.checked ? 10 : rounds[this.round])) {
             await this.handlePlayerVictory()
         }
 
-        else if (this.ai.score === rounds[this.round]) {
+        else if (this.player2.score === (multiplayer.checked ? 10 : rounds[this.round])) {
             this.handleAiVictory()
         }
     }
@@ -109,7 +108,7 @@ class Game {
         
         this.player.draw()
 
-        this.ai.draw()
+        this.player2.draw()
 
         if (this._turnDelayIsOver()) {
             this.ball.draw(context)
@@ -121,7 +120,7 @@ class Game {
 
         context.fillStyle = '#000000'
 
-        drawPlayerScores(this.player.score.toString(),this.ai.score.toString())
+        drawPlayerScores(this.player.score.toString(),this.player2.score.toString())
 
         drawRound(this.round)
        
@@ -141,22 +140,22 @@ class Game {
     }
 
     checkForGoal(){
-        if (this.ball.x <= 0) this._resetTurn(this.ai, this.player)
-        if (this.ball.x >= canvas.width - this.ball.width) this._resetTurn(this.player, this.ai)
+        if (this.ball.x <= 0) this._resetTurn(this.player2, this.player)
+        if (this.ball.x >= canvas.width - this.ball.width) this._resetTurn(this.player, this.player2)
     }
 
     async handlePlayerVictory(){
         // Check to see if there are any more rounds/levels left and display the victory screen if
             // there are not.
-        if (!rounds[this.round + 1]) {
+        if (!rounds[this.round + 1] || multiplayer.checked) {
             this.over = true
-            setTimeout(() => this.endGameMenu('Winner!'), 1000)
+            setTimeout(() => this.endGameMenu(multiplayer.checked ?'Player 1 Wins':'Winner!'), 1000)
         } else {
             // If there is another round, reset all the values and increment the round number.
             color = await this._generateRoundColor()
-            this.player.score = this.ai.score = 0
+            this.player.score = this.player2.score = 0
             this.player.speed += 0.5
-            this.ai.speed += 1
+            this.player2.speed += 1
             this.ball.speed += 1
             this.round += 1
         }
@@ -164,7 +163,7 @@ class Game {
 
     handleAiVictory(){
         this.over = true
-        setTimeout(() => this.endGameMenu('Game Over!'), 1000)
+        setTimeout(() => this.endGameMenu(multiplayer.checked ?'Player 2 Wins':'Game Over!'), 1000)
     }
 
     // Reset the ball location, the player turns and set a delay before the next round begins.
@@ -174,7 +173,7 @@ class Game {
         this.timer = (new Date()).getTime()
         victor.score++
         this.player.reset()
-        this.ai.reset()
+        this.player2.reset()
     }
 
     // Wait for a delay to have passed after each turn.
@@ -199,8 +198,13 @@ class Game {
         })
     }
     hideMenu(){
-        [startButton,document.getElementById("rules"),itemCheck,document.getElementById("icLabel")]
+        [startButton,document.getElementById("rules"),itemCheck,document.getElementById("icLabel"),multiplayer,document.getElementById("mpLabel")]
         .forEach(el => el.style.zIndex = "0")
+    }
+    showMenu(){
+        clearCanvas()
+        var menuItems = [startButton,document.getElementById("rules"),itemCheck,document.getElementById("icLabel"),multiplayer,document.getElementById("mpLabel")]
+        menuItems.forEach(el => el.style.zIndex = "1")
     }
 
 }
@@ -220,6 +224,7 @@ ball.src = "images/basketball.png"
 
 var startButton = document.getElementById('start')
 var itemCheck = document.getElementById('itemCheck')
+var multiplayer = document.getElementById('multiPlayer')
 var Pong
 
 startButton.addEventListener('click',() => Pong = new Game())

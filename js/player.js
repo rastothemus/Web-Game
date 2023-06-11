@@ -12,7 +12,6 @@ class Player {
         this.x = side === 'left' ? 150 : canvasWidth - 150
         this.y = (canvasHeight / 2) - 35
         this.score = 0
-        this.speed = 8
     }
 
     wallCollision() {
@@ -28,11 +27,18 @@ class Player {
 export class RealPlayer extends Player{
     constructor(canvasWidth, canvasHeight, side){
         super(canvasWidth, canvasHeight, side)
+        this.speed = 8
     }
 
     move(keys){
-        if (keys.keysPressed.get("w") || keys.keysPressed.get("ArrowUp")) this.y -= this.speed
-        if (keys.keysPressed.get("s") || keys.keysPressed.get("ArrowDown")) this.y += this.speed
+        if(this.side === "left"){
+            if (keys.keysPressed.get("w")) this.y -= this.speed
+            if (keys.keysPressed.get("s")) this.y += this.speed
+        }
+        else{
+            if (keys.keysPressed.get("ArrowUp")) this.y -= this.speed
+            if (keys.keysPressed.get("ArrowDown")) this.y += this.speed
+        }
         this.wallCollision()
     }
 }
@@ -40,6 +46,7 @@ export class RealPlayer extends Player{
 export class AI extends Player{
     constructor(canvasWidth, canvasHeight, side){
         super(canvasWidth, canvasHeight, side)
+        this.speed = 5
     }
 
     move(ball){

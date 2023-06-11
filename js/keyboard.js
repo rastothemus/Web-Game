@@ -18,7 +18,6 @@ export class Keyboard {
                 event.preventDefault()
                 this.started = true
                 this.handlePauseKey(event)
-                this.handleMuteKey(event)
                 if (this.keysPressed.has(event.key)) this.keysPressed.set(event.key, event.type === "keydown")
             })
         })
@@ -37,13 +36,6 @@ export class Keyboard {
         if (this.firstpress(event," ")) {
             this.paused = !this.paused
             drawText("Pause")
-        }
-    }
-    handleMuteKey(event){
-        if (this.firstpress(event,"m")) {
-            this.audioPaused = !this.audioPaused
-            if(this.audioPaused) music.pause()
-            else music.play()
         }
     }
     firstpress(event,key){
