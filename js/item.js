@@ -22,11 +22,11 @@ export class Item {
         this.collected = false 
     }
 
-    async move(ball,player,ai){
+    async move(ball,player,ai,gameTimer){
         if (this.moveY === DIRECTION.UP) this.y -= this.speed
         else this.y += this.speed
         this.wallcollision()
-        await this.ballCollision(ball,player,ai)
+        await this.ballCollision(ball,player,ai,gameTimer)
     }
 
     wallcollision(){
@@ -34,8 +34,8 @@ export class Item {
         if (this.y >= canvas.height - this.height) this.moveY = DIRECTION.UP
     }
 
-    async ballCollision(ball,player,ai){
-        if(!this.collected){
+    async ballCollision(ball,player,ai,gameTimer){
+        if(!this.collected && (new Date()).getTime() - gameTimer >= 2000){
             if (this.x - this.width <= ball.x && this.x >= ball.x - ball.width && this.y <= ball.y + ball.height && this.y + this.height >= ball.y) {
                 this.activated = true
                 console.log(this.imageSrc)
@@ -110,8 +110,8 @@ export class Item {
         if(ai.height<minPlayerHeight) ai.height = minPlayerHeight
     }
 
-    draw(){
-        if(!this.collected) {
+    draw(gameTimer){
+        if(!this.collected && (new Date()).getTime() - gameTimer >= 2000) {
             context.drawImage(this.image, this.x, this.y, this.width, this.height)
         }
     }

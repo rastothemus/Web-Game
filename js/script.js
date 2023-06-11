@@ -86,9 +86,9 @@ class Game {
             this.ball.move(this.player,this.player2)
 
             
-            multiplayer.checked ? this.player2.move(this.keys) : this.player2.move(this.ball)
+            this.player2.move(multiplayer.checked? this.keys:this.ball)
 
-            this.item?.move(this.ball,this.player,this.player2)
+            this.item?.move(this.ball,this.player,this.player2,this.timer)
         }
 
         if (this.player.score === (multiplayer.checked ? 10 : rounds[this.round])) {
@@ -114,7 +114,7 @@ class Game {
             this.ball.draw(context)
         }
 
-        this.item?.draw()
+        this.item?.draw(this.timer)
 
         context.textAlign = 'center'
 
