@@ -34,5 +34,7 @@ Shrink: https://static.thenounproject.com/png/1268891-200.png
 
 Grow-Ball: https://static.thenounproject.com/png/1268891-200.png 
 
+Menu-Background:https://w0.peakpx.com/wallpaper/897/125/HD-wallpaper-blank-paper-on-wooden-board-macro-old-paper-wooden-board-blank-paper-wooden-background-notebook.jpg
+
 Base for the game: https://github.com/devression/Pong-Game
 

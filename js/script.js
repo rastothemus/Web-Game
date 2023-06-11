@@ -41,8 +41,7 @@ class Game {
 
         this.ball = new Ball(canvas?.width, canvas?.height)
 
-        //if(itemCheck.checked) this.item = new Item(canvas?.width, canvas?.height,image)
-        this.item = new Item(canvas?.width, canvas?.height,image)
+        if(itemCheck.checked) this.item = new Item(canvas?.width, canvas?.height,image)
 
         this.keys = new Keyboard()
 
@@ -53,7 +52,7 @@ class Game {
         this.turn = this.ai
         this.timer = this.round = 0
 
-        //startButton.style.zIndex = "0"
+        this.hideMenu()
 
 
         this.draw()
@@ -199,8 +198,13 @@ class Game {
             })
         })
     }
+    hideMenu(){
+        [startButton,document.getElementById("rules"),itemCheck,document.getElementById("icLabel")]
+        .forEach(el => el.style.zIndex = "0")
+    }
 
 }
+
 
 
 
@@ -215,9 +219,7 @@ export const ball = new Image()
 ball.src = "images/basketball.png"
 
 var startButton = document.getElementById('start')
-// var itemCheck = document.getElementById('itemCheck')
+var itemCheck = document.getElementById('itemCheck')
 var Pong
 
-//startButton.addEventListener('click',() => Pong = new Game())
-
-pitch.onload = () => Pong = new Game()
+startButton.addEventListener('click',() => Pong = new Game())

@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css?family=Schoolbell&v1" rel="stylesheet">
     <title>Pong Game</title>
 </head>
 <style>
@@ -24,17 +25,19 @@
     text-align: center;
     }
     .startButton {
-        top: 300px; 
+        top: 70%; 
     }
     .menuElement {
         z-index: 1;
         position:absolute;
         left: 50%; 
         transform: translate(-50%, -100%); 
+        font-family: 'Schoolbell', arial, serif; 
     }
-    #demotext {
-        color: #FFFFFF;
-        text-shadow: #FFF 0px 0px 5px, #FFF 0px 0px 10px, #FFF 0px 0px 15px, #FF2D95 0px 0px 20px, #FF2D95 0px 0px 30px, #FF2D95 0px 0px 40px, #FF2D95 0px 0px 50px, #FF2D95 0px 0px 75px;
+    canvas{
+        background-image: url("images/menu.jpg");
+        background-size: contain;
+        background-repeat: no-repeat;
     }
 </style>
 <body>
@@ -45,13 +48,13 @@
         </div>
         <canvas style="z-index: 1;">
         </canvas>
-        <!-- <button id="start" class="startButton menuElement">Start Game</button>
-        <label for="itemCheck" class="menuElement" style="top:380px;color: black;">Items enabled</label>
+        <button id="start" class="startButton menuElement">Start Game</button>
+        <label id="icLabel" for="itemCheck" class="menuElement" style="top:380px;color: black;">Items enabled</label>
         <input id="itemCheck" type="checkbox" class="menuElement" style="top:400px">
-        <p class="menuElement" id="demotext" style="color:black; top:250px; width: 500px;">Rules: <br>
+        <p class="menuElement" id="rules" style="color:black;top:45%; width: 400px;">Rules: <br>
             Player 1 moves with the w & s keys. Spieler 2 moves with the arrow keys. 
             The items that move up & down in the middle of the screen, can change the size of the players and the ball.
-            The strength of the effect depends on how long the ball passes through the item.</p> -->
+            The strength of the effect depends on how long the ball passes through the item.</p>
         <div style="display: flex; flex-direction: column; justify-content: center; flex: 1;align-items: center;">
             <p style="color: white;">Optionen</p>
             <label for="music">Music:</label> 
