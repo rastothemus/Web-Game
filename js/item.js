@@ -17,7 +17,7 @@ export class Item {
         this.moveY = DIRECTION.UP
         this.speed = 3
         this.image = image
-        this.imageSrc = "shrinkBall"
+        this.imageSrc = "growBall"
         this.activated = false 
         this.collected = false 
     }

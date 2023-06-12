@@ -209,6 +209,8 @@ class Game {
 
         drawText("Beliebige Taste drücken")
 
+        await this.item?.loadNewItem()
+
         this.keys.waitTillAnyKeyPressed().then(() => window.requestAnimationFrame(() => this.loop()))
 
     }
@@ -219,8 +221,6 @@ class Game {
 
 
 const image = new Image()
-image.src = "images/shrinkBall.png"
-
 
 export const pitch = new Image()
 pitch.src = "images/bb-pitch.jpg"
