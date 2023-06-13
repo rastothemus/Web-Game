@@ -16,7 +16,7 @@ export let color = '#8c52ff'
 export let pitchSrc = 'bb-pitch'
 export let ballSrc = 'basketball'
 
-export const rounds = [1, 1, 3, 3, 2] // Punkte die man braucht um die jeweilige Runde zu beenden
+export const rounds = [1,1, 3, 3, 2,1] // Punkte die man braucht um die jeweilige Runde zu beenden
 const colors = ['#1abc9c', '#2ecc71', '#3498db', '#8c52ff', '#9b59b6']
 const pitches = ['fb-pitch','ih-pitch','r-pitch','bb-pitch','t-pitch']
 const balls = ['football','icehockeypuck','rugbyball','basketball','tennisball']
@@ -223,10 +223,8 @@ class Game {
 const image = new Image()
 
 export const pitch = new Image()
-pitch.src = "images/bb-pitch.jpg"
 
 export const ball = new Image()
-ball.src = "images/basketball.png"
 
 var startButton = document.getElementById('start')
 var itemCheck = document.getElementById('itemCheck')

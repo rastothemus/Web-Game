@@ -56,6 +56,8 @@ export class Item {
             else if (this.activated) {
                 this.collected = true
                 this.activated = false
+                player.transforming = false
+                ai.transforming = false
                 this.timer = (new Date()).getTime()
             }
         }
@@ -87,8 +89,14 @@ export class Item {
     }
 
     growPlayer(ball,player,ai){
-        if(ball.moveX === DIRECTION.LEFT) ai.height += 3
-        else player.height += 3
+        if(ball.moveX === DIRECTION.LEFT) {
+            ai.height += 3
+            ai.transforming = true
+        }
+        else {
+            player.height += 3
+            player.transforming = true
+        }
         if(player.height>maxPlayerHeight) player.height = maxPlayerHeight
         if(ai.height>maxPlayerHeight) ai.height = maxPlayerHeight
     }
@@ -104,8 +112,14 @@ export class Item {
     }
 
     shrinkPlayer(ball,player,ai){
-        if(ball.moveX === DIRECTION.LEFT) player.height -= 3
-        else ai.height -= 3
+        if(ball.moveX === DIRECTION.LEFT) {
+            player.height -= 3
+            player.transforming = true
+        }
+        else {
+            ai.height -= 3
+            player.transforming = true
+        }
         if(player.height<minPlayerHeight) player.height = minPlayerHeight
         if(ai.height<minPlayerHeight) ai.height = minPlayerHeight
     }

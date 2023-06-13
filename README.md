@@ -1,12 +1,24 @@
-# Hintergrund-Bild
+# Pong Evolution
 
-Quelle: https://cdn.pixabay.com/photo/2023/01/29/21/47/space-7754181_1280.jpg
+**Autor:** Rasmus de Groote
 
-# Music
+## Erstelldatum
+Projektzeitraum: 17.04.2021-13.06.2021
+
+## Versionsdatum
+1.0
+
+## Referenzen an 3rd Party Komponenten
+
+### Music 
 
 Quelle: https://www.chosic.com/download-audio/27880/
 
-#Bilder
+### Hintergrund-Bild
+
+Quelle: https://cdn.pixabay.com/photo/2023/01/29/21/47/space-7754181_1280.jpg
+
+### andere Bilder
 
 Rugby-Pitch : https://upload.wikimedia.org/wikipedia/commons/thumb/5/52/Rugby_union_pitch.svg/1200px-Rugby_union_pitch.svg.png
 
@@ -34,7 +46,18 @@ Shrink: https://static.thenounproject.com/png/1268891-200.png
 
 Grow-Ball: https://static.thenounproject.com/png/1268891-200.png 
 
-Menu-Background:https://w0.peakpx.com/wallpaper/897/125/HD-wallpaper-blank-paper-on-wooden-board-macro-old-paper-wooden-board-blank-paper-wooden-background-notebook.jpg
+Menu-Background: https://w0.peakpx.com/wallpaper/897/125/HD-wallpaper-blank-paper-on-wooden-board-macro-old-paper-wooden-board-blank-paper-wooden-background-notebook.jpg
 
-Base for the game: https://github.com/devression/Pong-Game
+### Base for the game
 
+Quelle: https://github.com/devression/Pong-Game
+
+## Browserkompatibilität
+
+Firefox Version 114.0.1
+
+
+
+## Eigene Lizenzdatei 
+
+Apache License 2.0 : https://www.apache.org/licenses/LICENSE-2.0 

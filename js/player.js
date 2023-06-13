@@ -3,6 +3,8 @@ import { DIRECTION } from "./ball.js"
 
 const bat = new Image()
 bat.src = "images/bat.png"
+const batTransform = new Image()
+batTransform.src = "images/batTransform.png"
 
 class Player {
     constructor(canvasWidth, canvasHeight, side) {
@@ -12,6 +14,7 @@ class Player {
         this.x = side === 'left' ? 150 : canvasWidth - 150
         this.y = (canvasHeight / 2) - 35
         this.score = 0
+        this.transforming = false
     }
 
     wallCollision() {
@@ -19,7 +22,10 @@ class Player {
         else if (this.y >= canvas.height - this.height) this.y = canvas.height - this.height
     }
 
-    draw() {context.drawImage(bat,this.x,this.y,this.width,this.height)}
+    draw() {
+        if (this.transforming) context.drawImage(batTransform,this.x,this.y,this.width,this.height)
+        else context.drawImage(bat,this.x,this.y,this.width,this.height)
+    }
     
     reset() {this.height = 180}
 }

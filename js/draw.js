@@ -1,4 +1,4 @@
-import { canvas,context,color,rounds,pitch,pitchSrc } from "./script.js";
+import { canvas,context,rounds,pitch} from "./script.js";
 
 export function drawBackground(){context.drawImage(pitch, 0, 0, canvas.width, canvas.height)}
 
