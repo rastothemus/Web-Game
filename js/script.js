@@ -6,10 +6,7 @@ import { clearCanvas, drawText, loadImage } from "./help.js"
 import {drawBackground,drawPlayerScores,drawRound,drawWinningScore} from "./draw.js"
 
 export const canvas = document.querySelector('canvas')
-canvas.width = 1400   //Doppelt damit man bei ganzen Zahlen bleibt
-canvas.height = 1000
-canvas.style.width = (canvas.width / 2) + 'px'
-canvas.style.height = (canvas.height / 2) + 'px'
+setupCanvas()
 export const context = canvas?.getContext('2d')
 export const analyse = document.getElementById("analyse")
 export let color = ''
@@ -22,11 +19,16 @@ const pitches = ['fb-pitch','ih-pitch','r-pitch','bb-pitch','t-pitch']
 const balls = ['football','icehockeypuck','rugbyball','basketball','tennisball']
 
 export const music = new Audio('../Music.mp3')
-music.volume = 0
-document.addEventListener('click', () => music.play());
-var musicSlider = document.getElementById('music')
-musicSlider.value = 0
-musicSlider.addEventListener('input', () => music.volume = musicSlider.value/100);
+setupMusic()
+
+const image = new Image()
+export const pitch = new Image()
+export const ball = new Image()
+
+var startButton = document.getElementById('start')
+var itemCheck = document.getElementById('itemCheck')
+var multiplayer = document.getElementById('multiPlayer')
+var Pong
 
 class Game {
     constructor() {
@@ -49,10 +51,28 @@ class Game {
         this.setup()
     }
 
-    endGameMenu(text) {
-        drawText(text)
-        this.keys.looked = true
-        setTimeout(() => this.showMenu(), 3000)
+    async setup(){
+        this.hideMenu()
+
+        color = await this._generateRoundDesign()
+        this.draw()
+
+        drawText("Beliebige Taste drücken")
+
+        await this.item?.loadNewItem()
+
+        this.keys.waitTillAnyKeyPressed().then(() => window.requestAnimationFrame(() => this.loop()))
+
+    }
+
+    async loop() {
+
+        if(!this.keys.paused){
+            await this.update()
+            this.draw()
+        }
+
+        if (!this.over) requestAnimationFrame(() => this.loop())
     }
 
     async update() {
@@ -116,17 +136,12 @@ class Game {
         }
     }
 
-    async loop() {
-
-        if(!this.keys.paused){
-            await this.update()  //Pong weil requestAnimationFrame das Object nicht mitnimmt
-            this.draw()
-        }
-
-
-        // If the game is not over, draw the next frame.
-        if (!this.over) requestAnimationFrame(() => this.loop())
+    endGameMenu(text) {
+        drawText(text)
+        this.keys.looked = true
+        setTimeout(() => this.showMenu(), 3000)
     }
+
 
     checkForGoal(){
         if (this.ball.x <= 0) this._resetTurn(this.player2, this.player)
@@ -134,13 +149,10 @@ class Game {
     }
 
     async handlePlayerVictory(){
-        // Check to see if there are any more rounds/levels left and display the victory screen if
-            // there are not.
         if (!rounds[this.round + 1] || multiplayer.checked) {
             this.over = true
             setTimeout(() => this.endGameMenu(multiplayer.checked ?'Player 1 Wins':'Winner!'), 1000)
         } else {
-            // If there is another round, reset all the values and increment the round number.
             color = await this._generateRoundDesign()
             this.player.score = this.player2.score = 0
             this.player.speed += 0.5
@@ -155,7 +167,6 @@ class Game {
         setTimeout(() => this.endGameMenu(multiplayer.checked ?'Player 2 Wins':'Game Over!'), 1000)
     }
 
-    // Reset the ball location, the player turns and set a delay before the next round begins.
     _resetTurn(victor, loser) {
         this.ball = new Ball(canvas.width, canvas.height, this.ball.speed)
         this.turn = loser
@@ -165,12 +176,10 @@ class Game {
         this.player2.reset()
     }
 
-    // Wait for a delay to have passed after each turn.
     _turnDelayIsOver() {
         return ((new Date()).getTime() - this.timer >= 1000)
     }
 
-    // Select a random color as the background of each level/round.
     _generateRoundDesign() {
         return new Promise(resolve => {
             do{
@@ -179,7 +188,6 @@ class Game {
             }while (newColor === color)
             pitchSrc = 'images/' + pitches[index] + '.jpg'
             ballSrc = 'images/' + balls[index] + '.png'
-            pitch.src = 'images/' + pitches[index] + '.jpg'
             let promises = [loadImage(pitch,pitchSrc),loadImage(ball,ballSrc)]
             Promise.all(promises).then(() => {
                 resolve(newColor)
@@ -196,34 +204,22 @@ class Game {
         var menuItems = [startButton,document.getElementById("rules"),itemCheck,document.getElementById("icLabel"),multiplayer,document.getElementById("mpLabel")]
         menuItems.forEach(el => el.style.zIndex = "2")
     }
-    async setup(){
-        this.hideMenu()
-
-        color = await this._generateRoundDesign()
-        this.draw()
-
-        drawText("Beliebige Taste drücken")
-
-        await this.item?.loadNewItem()
-
-        this.keys.waitTillAnyKeyPressed().then(() => window.requestAnimationFrame(() => this.loop()))
-
-    }
 
 }
 
+function setupMusic(){
+    music.volume = 0
+    document.addEventListener('click', () => music.play());
+    const musicSlider = document.getElementById('music')
+    musicSlider.value = 0
+    musicSlider.addEventListener('input', () => music.volume = musicSlider.value/100);
+}
 
-
-
-const image = new Image()
-
-export const pitch = new Image()
-
-export const ball = new Image()
-
-var startButton = document.getElementById('start')
-var itemCheck = document.getElementById('itemCheck')
-var multiplayer = document.getElementById('multiPlayer')
-var Pong
+function setupCanvas(){
+    canvas.width = 1400   //Doppelt damit man bei ganzen Zahlen bleibt
+    canvas.height = 1000
+    canvas.style.width = (canvas.width / 2) + 'px'
+    canvas.style.height = (canvas.height / 2) + 'px'
+}
 
 startButton?.addEventListener('click',() => Pong = new Game())

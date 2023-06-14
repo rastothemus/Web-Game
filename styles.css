@@ -1,5 +1,4 @@
 body {
-        background-color: ghostwhite;
         display: flex;
         justify-content: center;
         height: 100vh;
@@ -8,6 +7,7 @@ body {
         background-image: url("images/background.jpg");
         background-size: cover; 
         color: white;
+        background-position: center center;
 }
     .title {
     font-size: 4em;
@@ -24,9 +24,30 @@ body {
         left: 50%; 
         top:50%;
         font-family: 'Schoolbell', arial, serif; 
+        color:black;
     }
     canvas{
         background-image: url("images/menu.jpg");
         background-size: contain;
         background-repeat: no-repeat;
+        z-index: 1;
+    }
+    #start{
+        transform: translate(-50%,800%);
+    }
+    #icLabel{
+        transform: translate(-50%,150%);
+    }
+    #itemCheck{
+        transform: translate(-50%,450%);
+    }
+    #mpLabel{
+        transform: translate(-50%,400%);
+    }
+    #multiPlayer{
+        transform: translate(-50%,900%);
+    }
+    #rules{
+        transform: translate(-50%,-90%); 
+        width: 400px;
     }

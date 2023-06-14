@@ -1,6 +1,5 @@
 import { canvas,ball } from "./script.js"
 
-// Zuordnung von Zahlen zu möglichen Bewegungen
 export const DIRECTION = {
     IDLE: 0,
     UP: 1,

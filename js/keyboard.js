@@ -1,4 +1,3 @@
-import { music } from "./script.js"
 import { drawText } from "./help.js"
 
 export class Keyboard {
@@ -33,12 +32,12 @@ export class Keyboard {
         })
     }
     handlePauseKey(event){
-        if (this.firstpress(event," ")) {
+        if (this.firstPauseKeyPress(event)) {
             this.paused = !this.paused
-            drawText("Pause")
+            if(this.paused) drawText("Pause")
         }
     }
-    firstpress(event,key){
-        return event.key === key && !this.keysPressed.get(key) && (event.type === "keydown")
+    firstPauseKeyPress(event){
+        return !this.keysPressed.get(" ") && (event.type === "keydown")
     }
 }

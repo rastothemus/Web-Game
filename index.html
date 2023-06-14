@@ -13,19 +13,19 @@
     <div style="display:flex;">
         <div style="flex:1;">
         </div>
-        <canvas style="z-index: 1;">
+        <canvas>
         </canvas>
-        <button id="start" class="startButton menuElement" style="transform: translate(-50%,800%);">Start Game</button>
-        <label id="icLabel" for="itemCheck" class="menuElement" style="transform: translate(-50%,150%);color: black;">Items enabled</label>
-        <input id="itemCheck" type="checkbox" class="menuElement" style="transform: translate(-50%,450%);">
-        <label id="mpLabel" for="itemCheck" class="menuElement" style="transform: translate(-50%,400%);color: black;">Multiplayer</label>
-        <input id="multiPlayer" type="checkbox" class="menuElement" style="transform: translate(-50%,900%);">
-        <p class="menuElement" id="rules" style="color:black;transform: translate(-50%,-90%); width: 400px;">Rules: <br>
+        <button id="start" class="startButton menuElement">Start Game</button>
+        <label id="icLabel" for="itemCheck" class="menuElement">Items enabled</label>
+        <input id="itemCheck" type="checkbox" class="menuElement">
+        <label id="mpLabel" for="itemCheck" class="menuElement">Multiplayer</label>
+        <input id="multiPlayer" type="checkbox" class="menuElement">
+        <p class="menuElement" id="rules">Rules: <br>
             Player 1 moves with the w & s keys. Player 2 moves with the arrow keys. 
             The items that move up & down in the middle of the screen, can change the size of the players and the ball.
             The strength of the effect depends on how long the ball passes through the item. Press the space key to pause the game.</p>
         <div style="display: flex; flex-direction: column; justify-content: center; flex: 1;align-items: center;">
-            <p style="color: white;">Options</p>
+            <p>Options</p>
             <label for="music">Music:</label> 
             <input type="range" id="music" min="0" max="100" step="1" value="100">
             <label for="sounds">Sounds:</label> 
