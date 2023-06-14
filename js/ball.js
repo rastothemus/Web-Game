@@ -1,4 +1,4 @@
-import { canvas,hitSound,ball } from "./script.js"
+import { canvas,ball } from "./script.js"
 
 // Zuordnung von Zahlen zu möglichen Bewegungen
 export const DIRECTION = {
@@ -8,6 +8,9 @@ export const DIRECTION = {
     LEFT: 3,
     RIGHT: 4
 }
+
+export const hitSound = new Audio('../hit.mp3')
+setUpHitSound()
 
 export class Ball {
     constructor(canvasWidth, canvasHeight, incrementedSpeed) {
@@ -53,4 +56,12 @@ export class Ball {
         if (this.y <= 0) this.moveY = DIRECTION.DOWN
         if (this.y >= canvas.height - this.height) this.moveY = DIRECTION.UP
     }
+}
+
+function setUpHitSound(){
+    hitSound.volume = 0.5
+    hitSound.playbackRate = 2
+    var soundSlider = document.getElementById('sounds')
+    soundSlider.value = 50
+    soundSlider.addEventListener('input', () => hitSound.volume = soundSlider.value/100);
 }

@@ -1,5 +1,5 @@
 import { Keyboard } from "./keyboard.js"
-import { Ball, DIRECTION } from "./ball.js"
+import { Ball, DIRECTION,hitSound } from "./ball.js"
 import { RealPlayer, AI } from "./player.js"
 import { Item } from "./item.js"
 import { clearCanvas, drawText, loadImage } from "./help.js"
@@ -12,11 +12,11 @@ canvas.style.width = (canvas.width / 2) + 'px'
 canvas.style.height = (canvas.height / 2) + 'px'
 export const context = canvas?.getContext('2d')
 export const analyse = document.getElementById("analyse")
-export let color = '#8c52ff'
-export let pitchSrc = 'bb-pitch'
-export let ballSrc = 'basketball'
+export let color = ''
+export let pitchSrc = ""
+export let ballSrc = ""
 
-export const rounds = [1,1, 3, 3, 2,1] // Punkte die man braucht um die jeweilige Runde zu beenden
+export const rounds = [5,5, 3, 3, 2,1] 
 const colors = ['#1abc9c', '#2ecc71', '#3498db', '#8c52ff', '#9b59b6']
 const pitches = ['fb-pitch','ih-pitch','r-pitch','bb-pitch','t-pitch']
 const balls = ['football','icehockeypuck','rugbyball','basketball','tennisball']
@@ -27,11 +27,6 @@ document.addEventListener('click', () => music.play());
 var musicSlider = document.getElementById('music')
 musicSlider.value = 0
 musicSlider.addEventListener('input', () => music.volume = musicSlider.value/100);
-export const hitSound = new Audio('../hit.mp3')
-hitSound.volume = 0.5
-var soundSlider = document.getElementById('sounds')
-soundSlider.value = 50
-soundSlider.addEventListener('input', () => hitSound.volume = soundSlider.value/100);
 
 class Game {
     constructor() {
@@ -67,16 +62,16 @@ class Game {
 
             this.player.move(this.keys)
 
-            // On new serve (start of each turn) move the ball to the correct side
-            // and randomize the direction to add some challenge.
             if (this.turn && this._turnDelayIsOver()) {
                 this.ball.moveX = this.turn === this.player ? DIRECTION.RIGHT : DIRECTION.LEFT
                 this.ball.moveY = [DIRECTION.UP, DIRECTION.DOWN][Math.round(Math.random())]
                 this.ball.y = Math.floor(Math.random() * canvas.height - 200) + 200
                 this.turn = null
+                hitSound.currentTime = 0
+                hitSound.play()
             }
             
-            this.ball.move(this.player,this.player2)
+            await this.ball.move(this.player,this.player2)
 
             
             this.player2.move(multiplayer.checked? this.keys:this.ball)
@@ -146,7 +141,7 @@ class Game {
             setTimeout(() => this.endGameMenu(multiplayer.checked ?'Player 1 Wins':'Winner!'), 1000)
         } else {
             // If there is another round, reset all the values and increment the round number.
-            color = await this._generateRoundColor()
+            color = await this._generateRoundDesign()
             this.player.score = this.player2.score = 0
             this.player.speed += 0.5
             this.player2.speed += 1
@@ -176,7 +171,7 @@ class Game {
     }
 
     // Select a random color as the background of each level/round.
-    _generateRoundColor() {
+    _generateRoundDesign() {
         return new Promise(resolve => {
             do{
             var index = Math.floor(Math.random() * colors.length)
@@ -194,7 +189,7 @@ class Game {
     async hideMenu(){
         [startButton,document.getElementById("rules"),itemCheck,document.getElementById("icLabel"),multiplayer,document.getElementById("mpLabel")]
         .forEach(el => el.style.zIndex = "0")
-        color = await this._generateRoundColor()
+        color = await this._generateRoundDesign()
     }
     showMenu(){
         clearCanvas()
@@ -204,7 +199,7 @@ class Game {
     async setup(){
         this.hideMenu()
 
-        color = await this._generateRoundColor()
+        color = await this._generateRoundDesign()
         this.draw()
 
         drawText("Beliebige Taste drücken")
@@ -231,4 +226,4 @@ var itemCheck = document.getElementById('itemCheck')
 var multiplayer = document.getElementById('multiPlayer')
 var Pong
 
-startButton.addEventListener('click',() => Pong = new Game())
+startButton?.addEventListener('click',() => Pong = new Game())

@@ -22,7 +22,7 @@ export function drawRound(round){
     context.font = 'bold 30px Courier New'
 
     context.fillText(
-        'Runde ' + (round + 1),
+        'Round ' + (round + 1),
         (canvas.width / 2),
         35
     )
