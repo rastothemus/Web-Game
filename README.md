@@ -54,9 +54,15 @@ Quelle: https://github.com/devression/Pong-Game
 
 ## Browserkompatibilität
 
-Firefox Version 114.0.1
+Firefox Version: 114.0.1
 
+Edge Version: 114.0.1823.43
 
+Google Chrone Version: 114.0.5735.110
+
+## Known Bugs
+
+Pause Schriftzug kann nach dem ersten Spiel im Menu auftauchen. 
 
 ## Eigene Lizenzdatei 
 

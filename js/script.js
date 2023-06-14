@@ -22,10 +22,10 @@ const pitches = ['fb-pitch','ih-pitch','r-pitch','bb-pitch','t-pitch']
 const balls = ['football','icehockeypuck','rugbyball','basketball','tennisball']
 
 export const music = new Audio('../Music.mp3')
-music.volume = 0.5
-music.play()
+music.volume = 0
+document.addEventListener('click', () => music.play());
 var musicSlider = document.getElementById('music')
-musicSlider.value = 50
+musicSlider.value = 0
 musicSlider.addEventListener('input', () => music.volume = musicSlider.value/100);
 export const hitSound = new Audio('../hit.mp3')
 hitSound.volume = 0.5
@@ -56,10 +56,10 @@ class Game {
 
     endGameMenu(text) {
         drawText(text)
+        this.keys.looked = true
         setTimeout(() => this.showMenu(), 3000)
     }
 
-    // Update all objects (move the player, ai, ball, increment the score, etc.)
     async update() {
         if (!this.over) {
             
@@ -70,7 +70,7 @@ class Game {
             // On new serve (start of each turn) move the ball to the correct side
             // and randomize the direction to add some challenge.
             if (this.turn && this._turnDelayIsOver()) {
-                this.ball.moveX = this.turn === this.player ? DIRECTION.LEFT : DIRECTION.RIGHT
+                this.ball.moveX = this.turn === this.player ? DIRECTION.RIGHT : DIRECTION.LEFT
                 this.ball.moveY = [DIRECTION.UP, DIRECTION.DOWN][Math.round(Math.random())]
                 this.ball.y = Math.floor(Math.random() * canvas.height - 200) + 200
                 this.turn = null
@@ -199,7 +199,7 @@ class Game {
     showMenu(){
         clearCanvas()
         var menuItems = [startButton,document.getElementById("rules"),itemCheck,document.getElementById("icLabel"),multiplayer,document.getElementById("mpLabel")]
-        menuItems.forEach(el => el.style.zIndex = "1")
+        menuItems.forEach(el => el.style.zIndex = "2")
     }
     async setup(){
         this.hideMenu()
