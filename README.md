@@ -48,6 +48,8 @@ Grow-Ball: https://static.thenounproject.com/png/1268891-200.png
 
 Menu-Background: https://w0.peakpx.com/wallpaper/897/125/HD-wallpaper-blank-paper-on-wooden-board-macro-old-paper-wooden-board-blank-paper-wooden-background-notebook.jpg
 
+Info: https://cdn-icons-png.flaticon.com/512/189/189664.png?w=360
+
 ### Base for the game
 
 Quelle: https://github.com/devression/Pong-Game
