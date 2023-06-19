@@ -36,7 +36,7 @@ class Game {
         this.player = new RealPlayer(canvas?.width, canvas?.height, 'left')
         this.player2 = multiplayer.checked ? new RealPlayer(canvas?.width, canvas?.height, 'right') : new AI(canvas?.width, canvas?.height, 'right')
 
-        this.ball = new Ball(canvas?.width, canvas?.height)
+        this.ball = new Ball(canvas?.width, canvas?.height, multiplayer.checked ? 9: 7)
 
         if(itemCheck.checked) this.item = new Item(canvas?.width, canvas?.height,image)
 
@@ -46,7 +46,8 @@ class Game {
 
         this.over = false
         this.turn = this.player2
-        this.timer = this.round = 0    
+        this.timer = (new Date()).getTime()
+        this.round = 0    
 
         this.setup()
     }

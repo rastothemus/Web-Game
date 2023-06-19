@@ -38,6 +38,6 @@ export class Keyboard {
         }
     }
     firstPauseKeyPress(event){
-        return !this.keysPressed.get(" ") && (event.type === "keydown")
+        return event.key === " " && !this.keysPressed.get(" ") && (event.type === "keydown")
     }
 }
