@@ -60,7 +60,7 @@ Firefox Version: 114.0.1
 
 Edge Version: 114.0.1823.43
 
-Google Chrone Version: 114.0.5735.110
+Google Chrome Version: 114.0.5735.110
 
 ## Known Bugs
 
